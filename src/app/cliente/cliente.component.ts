@@ -13,7 +13,7 @@ import { ModalService } from './detalle/modal.service';
 export class ClienteComponent implements OnInit {
   clientes: Cliente[];
   paginador:any;
-  /* modal[2] --> cliente.component.html*/
+  /* modal[2] -->  esto envia  clienteSeleccionado a --->cliente.component.html*/
   clienteSeleccionado:Cliente;
 
 
@@ -21,19 +21,25 @@ export class ClienteComponent implements OnInit {
     private acticatedRoute:ActivatedRoute,
     private modalService:ModalService) { }
 
+        /* PAGINADOR[3] */
+  /* lsitar */
   ngOnInit(): void {
     this.acticatedRoute.paramMap.subscribe(params => {
+                            /* poner strict a false para que no salga error */
       let page: number = +params.get('page');
       if(!page){
         page = 0
       }
       this.clienteService.listarClientes(page)
+      /* response contiene la lista de clientes y sus atritbutos */
       .subscribe(response => {
         this.clientes = response.content as Cliente[];
+         /*PAGINADOR[3] pasar este paginador al componenete --> cliente.component.html */
+          /* crear variable local  paginador de tipo any*/
         this.paginador = response;
       });
     });
-     /* EventEmitter[4] /* so elcliente de la tabla es igual al cliente que estamos emitiendo, se atualizara la foto -->*/
+     /* EventEmitter[3] /* si el cliente de la tabla es igual al cliente que estamos agregando la foto, se atualizara la tabla con la foto -->*/
      this.modalService.notidicarUpload.subscribe(cliente => {
       this.clientes = this.clientes.map(clienteOriginal => {
 
@@ -64,7 +70,7 @@ export class ClienteComponent implements OnInit {
       if (result.value) {
         this.clienteService.eliminarCliente(cliente.id).subscribe(
           response => {
-
+/* no mostrar el cliente que se acaba de eliminar */
             this.clientes = this.clientes.filter(cli => cli !== cliente)
         swal(
           'Cliente Eliminado!',
@@ -78,7 +84,7 @@ export class ClienteComponent implements OnInit {
 })
 }
 
-/* MODAL[5] toma el cliente al clial se ahce click y se lo asigna al atributo clienteSelecionado  -->cliente.component.html*/
+/* MODAL[5] toma el cliente al cual se ahce click y se lo asigna al atributo clienteSelecionado  -->cliente.component.html*/
 abrirModal(cliente:Cliente){
   this.clienteSeleccionado = cliente
   /* MODAL[8]  */

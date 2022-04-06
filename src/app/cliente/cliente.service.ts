@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
+
 import { Cliente } from './cliente';
 import swal from 'sweetalert2';
 
@@ -10,28 +11,37 @@ import swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class ClienteService {
-
+/* union mediante ruta */
   private urlEndPoind:string ="http://localhost:8085/api/clientes"
+  /* crear - para tranformar a json */
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http:HttpClient,
     private router: Router) { }
 
+    /* PAGINADOR[2] */
+  /* Listar [1]  --->cliente.component.ts*/
   listarClientes(page :number): Observable<any> {
     return this.http.get(this.urlEndPoind + '/page/' + page);
   }
 
+  /* cargar los datos en el formulario cliente para editar mediante el id  --> form.component.ts*/
+  /*[1]validar getCliente(solo se modifica en cliente.servicio.ts) back-front - importar catchError*/
   obtenerClientePorId(id:number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoind}/${id}`)
+    /*captar error desde el back*/
     .pipe(
       catchError(e => {
         this.router.navigate(['/clientes'])
+        /* e=exepcion, error=atributo de exception que contiene el error, mensaje viene del back*/
         swal("Error al editar", e.error.message, 'error');
         return throwError(e);
       })
     )
   }
 
+/* crear cliente */
+  /*validar create[1] back-front, cambia a tipo any  para que no salga unidated en el sweetAlert --> cliente.component.ts*/
   crearCliente(cliente:Cliente): Observable<any> {
     return this.http.post<any>(this.urlEndPoind, cliente, {headers : this.httpHeaders})
     .pipe(
@@ -45,10 +55,12 @@ export class ClienteService {
     )
   }
 
+   /* ACTUALIZAR  --> form.component.ts*/
   actualizarCliente(cliente:Cliente):Observable<any> {
     return this.http.put<any>(`${this.urlEndPoind}/${cliente.id}`, cliente, {headers: this.httpHeaders})
     .pipe(
       catchError(e => {
+        /* capturar la validacion [1]@Valid  --> form.component.ts*/
         if(e.status==404){
           return throwError(e);
         }
@@ -57,7 +69,7 @@ export class ClienteService {
       })
     )
   }
-
+/* ELIMINAR  --> cliente.component.ts */
   eliminarCliente(id:any):Observable<Cliente> {
     return this.http.delete<Cliente>(`${this.urlEndPoind}/${id}`, {headers: this.httpHeaders})
     .pipe(
@@ -68,7 +80,7 @@ export class ClienteService {
     )
   }
 
-  /* subirfoto[7]   --> detalle.component.ts*/
+  /* subirfoto[2]   --> detalle.component.ts*/
 subirFoto(archivo: File, id): Observable<Cliente>{
   /*  enviamos al foto usando FormData con doporte multiPartFormData*/
   let formData = new FormData();

@@ -4,6 +4,6 @@ export class Cliente {
   apellido: string
   email: string
   createAt: string
-  /* subirfoto[6]   -->cliente.service.ts*/
+  /* subirfoto[1]   -->cliente.service.ts*/
   foto:string
 }

@@ -1,21 +1,25 @@
 <button class="btn btn-primary"></button>
 <br>
 <br>
-<!-- modal[3]pasamos el clienteseleccionado de cliente.component.ts y se lo inyectamos a [cliente] mediante el input deldetalle.component.ts-->
+<!-- modal[3]pasamos el clienteseleccionado de cliente.component.ts y se lo inyectamos a [cliente] mediante el input ir ah: deldetalle.component.ts-->
 <detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>
 <div class="card border-primary mb-3">
   <div class="card-header">Clientes</div>
   <div class="card-body text-primary">
     <h5 class="card-title" >Listado de Clientes</h5>
 
-	<div class="my-2 text-left">
+	<div class="my-2 text-left">                                            <!--"!CREAR" direcciona a clientes.form  despues de crear -->
       <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']"> Crear Clientes</button>
    </div>
+      <!-- para mostrar mensaje si no hay datos -->
+      <div *ngIf="clientes?.length == 0" class="alert alert-info">
+        No hay Clientes en la base de datos
+      </div>
 
-    <table class="table table-border table-striped" >
+    <table class="table table-border table-striped" *ngIf="clientes?.length > 0">
       <thead >
         <tr >
-          <th>id</th>
+          <th>#</th>
            <th>Nombre</th>
           <th>Apellido</th>
            <th>email</th>
@@ -42,14 +46,14 @@
             <img (click)="abrirModal(cliente)" *ngIf="!cliente?.foto" src="http://localhost:8085/images/no-usuario.png"
             alt="Sin Foto"class="img-thumbnail rounded" style="width:64px; cursor:pointer;">
            </td>
+
           <td>{{cliente.nombre}}</td>
           <td>{{cliente.apellido}}</td>
           <td>{{cliente.email}}</td>
           <td>{{cliente.createAt}}</td>
+
+          <!-- editar -  redirige al form.component.html -->
           <td>
-
-
-
             <button name="editar" type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary"> editar</button>
           </td>
           <td>
@@ -59,7 +63,13 @@
         </tr>
       </tbody>
     </table>
+     <!-- PAGINADOR[4] -->
+    <!-- con la etiqueta <paginator-nav> indicamos a este coomponent que querems inyectar el paginador al component paginator.ts-->
+    <!--se manda el "paginador" cargado de cliente.component.ts a paginator.component.ts-->
     <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
-
+      <!-- este selecto es el de paginator.component.ts -->
   </div>
 </div>
+
+
+

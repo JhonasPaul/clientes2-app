@@ -12,7 +12,7 @@ private _notidicarUpload = new EventEmitter<any>();
 
   constructor() { }
 
-  /* EventEmitter[2] --->detalle.component.ts */
+  /* EventEmitter[1] --->detalle.component.ts */
   get notidicarUpload(): EventEmitter<any>{
     return this._notidicarUpload;
   }

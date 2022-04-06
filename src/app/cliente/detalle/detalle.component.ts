@@ -12,7 +12,7 @@ import { ModalService } from './modal.service';
 })
 export class DetalleComponent implements OnInit {
 /* subirfoto[1] subir una foto por cliente y  se necsetia el id del cliente y el objeto cliente */
-  @Input() cliente:Cliente; /* MODAL[3] con esto se coloca la instancia(seleccionarCliente) de cliente en component.component.ts  -->cliente.component.html*/
+  @Input() cliente:Cliente; /* MODAL[4] con esto se coloca la instancia(seleccionarCliente) de cliente en component.component.ts  -->cliente.component.html*/
   public fotoSeleccionada:File;
   constructor(private clienteService:ClienteService,
     /* activatedRoute para subscribir cuando cambia el parametro del id */
@@ -33,7 +33,7 @@ export class DetalleComponent implements OnInit {
 
 
 
-  /* subirFoto[8]  -->detalle.component.html va en el input*/
+  /* subirFoto[3]  -->detalle.component.html va en el input*/
   seleccionarFoto(event){
     /* crer variable provada */
     this.fotoSeleccionada = event.target.files[0];/* dentro del arreglo de archivos agarrams el unico, o sea de laposicion 0 */
@@ -45,7 +45,7 @@ export class DetalleComponent implements OnInit {
     }
 
   }
-/* subirFoto[8]  -->detalle.component.html va en el button*/
+/* subirFoto[3]  -->detalle.component.html va en el button*/
   subirFoto(){
     /* validar si es que no se selcciona ninguna foto*/
     if (!this.fotoSeleccionada){
@@ -56,7 +56,7 @@ export class DetalleComponent implements OnInit {
     .subscribe(cliente=>{
       /*  cambio del cliente con su viena foto*/
       this.cliente = cliente;
-      /* EventEmitter[3] solo este this| --> clientes.component.ts*/
+      /* EventEmitter[2] solo este this| --> clientes.component.ts*/
       this.modalService.notidicarUpload.emit(this.cliente);
 
       swal("La foto se ha subido completamente!", `La foto se ha subido con exito: ${this.cliente.foto}`, 'success')

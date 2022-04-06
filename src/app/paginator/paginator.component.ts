@@ -13,6 +13,7 @@ hasta: number;
 
   constructor() { }
 
+  /* PAGINADOR[5] ---->paginador.coomponent.html*/
   ngOnInit(): void {
     this.initPaginator();
   }
