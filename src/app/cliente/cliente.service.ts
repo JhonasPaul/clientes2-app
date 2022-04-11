@@ -19,13 +19,13 @@ export class ClienteService {
   constructor(private http:HttpClient,
     private router: Router) { }
 
-    /* PAGINADOR[2] */
+    /* PAGINADOR[2]  --->cliente.component.ts*/
   /* Listar [1]  --->cliente.component.ts*/
   listarClientes(page :number): Observable<any> {
     return this.http.get(this.urlEndPoind + '/page/' + page);
   }
 
-  /* cargar los datos en el formulario cliente para editar mediante el id  --> form.component.ts*/
+  /* cargar cliente en el form[2] los datos en el formulario cliente para editar mediante el id  --> form.component.ts*/
   /*[1]validar getCliente(solo se modifica en cliente.servicio.ts) back-front - importar catchError*/
   obtenerClientePorId(id:number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoind}/${id}`)
@@ -40,7 +40,7 @@ export class ClienteService {
     )
   }
 
-/* crear cliente */
+
   /*validar create[1] back-front, cambia a tipo any  para que no salga unidated en el sweetAlert --> cliente.component.ts*/
   crearCliente(cliente:Cliente): Observable<any> {
     return this.http.post<any>(this.urlEndPoind, cliente, {headers : this.httpHeaders})
@@ -84,15 +84,15 @@ export class ClienteService {
 subirFoto(archivo: File, id): Observable<Cliente>{
   /*  enviamos al foto usando FormData con doporte multiPartFormData*/
   let formData = new FormData();
-  /* el mismo nombre que le pusimos en el back.end @ResquestParam("archivo") */
+  /* el mismo nombre que le pusimos en el back.end @ResquestParam("archivo") del metodo upload*/
   formData.append("archivo", archivo);
   formData.append("id", id);
   return this.http.post(`${this.urlEndPoind}/upload`, formData).pipe(/* covierte el Observable en tipo cliente */
-  /* obtiene response.put("cliente") del metodo upload  del back para converirlo en un observable de cliente*/
+  /* obtiene response.put("cliente") del metodo upload  del back en tipo json para converirlo en un observable de cliente*/
                       /* cliente es el atributo cliente del json de back y lo comnvertimos en untipo cliente */
     map((response: any) => response.cliente as Cliente),
     catchError(e =>{
-      /* error es el objeto de rror y mensaje es el mensaje de eror del bacck de catch*/
+      /* error es el objeto de error y mensaje es el mensaje de eror del bacck de catch del metodo upload*/
       swal(e.error.mensaje, e.error.error, 'error')
       return throwError(e);
     })

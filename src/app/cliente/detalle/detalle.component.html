@@ -1,10 +1,11 @@
-<!-- MODAL[12] colocar todo el modal dentro de este div con las clases  abrir-modal del css para animacion  y-->
-<!-- tambien colocamos  *ngIf="modalService.modal"-->
-<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+<!-- MODAL[5] -->
+<!-- tambien colocamos  *ngIf="modalService.modal" para que se cierre el modal completamente-->
+<div class="abrir-modal animacion fadeIn " *ngIf="modalService.modal">
 
 
-  <!-- MODAL[10] agregar el ngIf, poner el evento cerrarModal en los dot sbotones| agregar modal-lg para agrandar modal   ir a: detallecomponent.css-->
-<div *ngIf="modalService.modal"  class="modal" tabindex="-1" style="display:block;">
+  <!-- MODAL[5] agregar el ngIf, poner el evento cerrarModal en los dot sbotones|   ir a: detallecomponent.css-->
+<div *ngIf="modalService.modal"  class="modal conDetalle" tabindex="-1" style="display:block;">
+  <!--MODAL[5] agregar modal-lg para agrandar modal -->
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,7 +15,7 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm detalle">
               <!-- para evitar el error de asincrono -->
               <ul *ngIf="cliente" class="list-group text-dark mb-3">
 
@@ -33,9 +34,11 @@
               </div>
             </div>
             <div class="col-sm">
-              <!-- la ruta del metodo verFoto -->                                   <!-- IMAGEN[1] copíar y pegar en  -- cliente.component.html -->
+ <!-- este ngIf es para que funcione la validacion   cliente inyectado en detalle.component.ts       la ruta del metodo verFoto del back-->      <!-- IMAGEN[1] copíar y pegar en  -- cliente.component.html -->
               <img *ngIf="cliente?.foto" src="http://localhost:8085/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}"
                 class="img-thumbnail rounded">
+              <img   *ngIf="!cliente?.foto" src="http://localhost:8085/images/no-usuario.png"
+                    alt="Sin Foto"class="img-thumbnail rounded img" >
             </div>
           </div>
         </div>

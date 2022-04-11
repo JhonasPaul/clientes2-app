@@ -12,8 +12,9 @@ import { ModalService } from './detalle/modal.service';
 })
 export class ClienteComponent implements OnInit {
   clientes: Cliente[];
+
   paginador:any;
-  /* modal[2] -->  esto envia  clienteSeleccionado a --->cliente.component.html*/
+  /*MODAL[2] -->  esto envia  clienteSeleccionado a --->cliente.component.html*/
   clienteSeleccionado:Cliente;
 
 
@@ -21,7 +22,7 @@ export class ClienteComponent implements OnInit {
     private acticatedRoute:ActivatedRoute,
     private modalService:ModalService) { }
 
-        /* PAGINADOR[3] */
+        /* PAGINADOR[3]  ---> cliente.component.html*/
   /* lsitar */
   ngOnInit(): void {
     this.acticatedRoute.paramMap.subscribe(params => {
@@ -84,7 +85,7 @@ export class ClienteComponent implements OnInit {
 })
 }
 
-/* MODAL[5] toma el cliente al cual se ahce click y se lo asigna al atributo clienteSelecionado  -->cliente.component.html*/
+/* MODAL[2] toma el cliente al cual se ahce click y se lo asigna al atributo clienteSelecionado  -->cliente.component.html*/
 abrirModal(cliente:Cliente){
   this.clienteSeleccionado = cliente
   /* MODAL[8]  */

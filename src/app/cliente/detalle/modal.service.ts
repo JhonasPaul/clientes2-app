@@ -5,7 +5,7 @@ import { EventEmitter, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ModalService {
-  /* MODAL[7]  -->cliente.component.ts*/
+  /* MODAL[1]  -->cliente.component.ts*/
 modal:boolean = false;
 /* EventEmitter[1] */
 private _notidicarUpload = new EventEmitter<any>();
@@ -17,11 +17,11 @@ private _notidicarUpload = new EventEmitter<any>();
     return this._notidicarUpload;
   }
 
-
+/*MODAL[1] */
   abrirModal(){
     this.modal = true;
   }
-
+  /*MODAL[1] -->cliente.component.ts*/
   cerrarModal(){
     this.modal = false;
   }

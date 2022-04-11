@@ -1,4 +1,4 @@
-<button class="btn btn-primary"></button>
+
 <br>
 <br>
 <!-- modal[3]pasamos el clienteseleccionado de cliente.component.ts y se lo inyectamos a [cliente] mediante el input ir ah: deldetalle.component.ts-->
@@ -15,7 +15,6 @@
       <div *ngIf="clientes?.length == 0" class="alert alert-info">
         No hay Clientes en la base de datos
       </div>
-
     <table class="table table-border table-striped" *ngIf="clientes?.length > 0">
       <thead >
         <tr >
@@ -30,46 +29,92 @@
       </thead>
       <tbody>
         <tr *ngFor="let cliente of clientes">
-          <!-- subirfoto[5]  hasta podemos probar si este boto nos redirige a componente del detalle en la vista  --cliente.ts  -->
-          <!-- <td><button type="button" [routerLink]="['/clientes/ver', cliente.id]" class="btn btn-success">{{ cliente.id  }}</button></td> -->
-
-          <!-- MODAL[6] reemplaar subirfoto[5] por este.        Crear el servicio modal dentro de detalle  --modal-service.ts-->
-          <!-- <td>
-           <button type="button" (click)="abrirModal(cliente)" class="btn btn-success">{{ cliente.id  }}</button>
-          </td> -->
-
-          <td>                                                                       <!-- IMAGEN[2] reemplazamos MODAL[6] por este td  -- poner la foto en el backend-->
-            <img (click)="abrirModal(cliente)" *ngIf="cliente?.foto" src="http://localhost:8085/api/uploads/img/{{cliente.foto}}"
-            alt="{{cliente.foto}}"class="img-thumbnail rounded" style="width:64px; cursor:pointer;">
-
-            <!-- IMAGEN[3]  actualziar en el backnd para que muestre no-user cuando se borre una imagen desde el backend  ir ah:  @GetMapping("/uploads/img/{nombreFoto:.+}")-->
-            <img (click)="abrirModal(cliente)" *ngIf="!cliente?.foto" src="http://localhost:8085/images/no-usuario.png"
-            alt="Sin Foto"class="img-thumbnail rounded" style="width:64px; cursor:pointer;">
+          <td>
+            <!--EventEmiter[4]-->                                                              <!--ruta del metodo verFoto-->
+            <img  (click)="abrirModal(cliente)" *ngIf="cliente?.foto" src="http://localhost:8085/api/uploads/img/{{cliente.foto}}"
+            alt="{{cliente.foto}}"class="img-thumbnail rounded img" >          <!--esta ruta no entra al metodo del back-->
+            <img  (click)="abrirModal(cliente)" *ngIf="!cliente?.foto" src="http://localhost:8085/images/no-usuario.png" alt="Sin Foto"class="img-thumbnail rounded img" >
            </td>
-
           <td>{{cliente.nombre}}</td>
           <td>{{cliente.apellido}}</td>
           <td>{{cliente.email}}</td>
           <td>{{cliente.createAt}}</td>
-
           <!-- editar -  redirige al form.component.html -->
           <td>
             <button name="editar" type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary"> editar</button>
           </td>
           <td>
-
             <button name="eliminar" type="button" (click)="delete(cliente)" class="btn btn-danger"> eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
      <!-- PAGINADOR[4] -->
-    <!-- con la etiqueta <paginator-nav> indicamos a este coomponent que querems inyectar el paginador al component paginator.ts-->
     <!--se manda el "paginador" cargado de cliente.component.ts a paginator.component.ts-->
     <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
       <!-- este selecto es el de paginator.component.ts -->
   </div>
 </div>
+
+
+
+
+<div class="card border-primary mb-3">
+  <div class="card-header">Clientes</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title" >Listado de Clientes</h5>
+
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary" type="button"> Crear Clientes</button>
+    </div>
+
+    <div class="alert alert-info">
+      No hay Clientes en la base de datos
+    </div>
+
+    <table class="table table-border table-striped">
+      <thead >
+      <tr >
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>email</th>
+        <th>fecha</th>
+        <th>editar</th>
+        <th>eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr >
+
+
+        <td>
+          <img class="img-thumbnail rounded img" >
+
+          <img
+                alt="Sin Foto"class="img-thumbnail rounded img" >
+        </td>
+
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+
+        <td>
+          <button name="editar" type="button"  class="btn btn-primary"> editar</button>
+        </td>
+        <td>
+
+          <button name="eliminar" type="button"  class="btn btn-danger"> eliminar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
 
 
 

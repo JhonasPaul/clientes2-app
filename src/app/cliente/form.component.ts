@@ -24,6 +24,7 @@ export class FormComponent implements OnInit {
     this.cargarCliente();
   }
 
+  /*cargar cliente en el form[3]*/
   cargarCliente(): void {
     this.acticatedRoute.params.subscribe(params => {
       let id = params['id'];

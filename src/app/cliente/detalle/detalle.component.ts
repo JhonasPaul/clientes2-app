@@ -12,7 +12,7 @@ import { ModalService } from './modal.service';
 })
 export class DetalleComponent implements OnInit {
 /* subirfoto[1] subir una foto por cliente y  se necsetia el id del cliente y el objeto cliente */
-  @Input() cliente:Cliente; /* MODAL[4] con esto se coloca la instancia(seleccionarCliente) de cliente en component.component.ts  -->cliente.component.html*/
+  @Input() cliente:Cliente; /* MODAL[4] con esto se coloca la instancia(seleccionarCliente) de cliente en detalle.component.ts  -->cliente.component.html*/
   public fotoSeleccionada:File;
   constructor(private clienteService:ClienteService,
     /* activatedRoute para subscribir cuando cambia el parametro del id */
@@ -63,7 +63,7 @@ export class DetalleComponent implements OnInit {
     })
   }
 
-  /* MODAL[9]   --> detalle.component.html*/
+  /* MODAL[4]   --> detalle.component.html*/
   cerrarModal(){
     this.modalService.cerrarModal();
     this.fotoSeleccionada = null;

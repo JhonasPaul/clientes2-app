@@ -1,4 +1,4 @@
-/* MODAL[11] */
+/* MODAL[6] */
 .abrir-modal{
   background-color:rgba(0,0,0,0.5);
   position: fixed;
@@ -23,3 +23,9 @@
 
 @keyframes fadeIn {0% {opacity: 0}tu{opacity: 1}}
 @-webkit-keyframes fadeIn {0% {opacity: 0}tu{opacity: 1}}
+.detalle{
+  margin-top: 30px;
+}
+.conDetalle{
+  margin-top: 40px;
+}
