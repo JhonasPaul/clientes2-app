@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
+import { Region } from './region';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +15,7 @@ export class FormComponent implements OnInit {
 
   public cliente:Cliente = new Cliente();
   public errores:string[];
+  regiones:Region[];
   constructor(private acticatedRoute:ActivatedRoute,
     private clienteService:ClienteService,
     private router:Router,
@@ -21,11 +23,7 @@ export class FormComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.cargarCliente();
-  }
-
-  /*cargar cliente en el form[3]*/
-  cargarCliente(): void {
+    // this.cargarCliente();
     this.acticatedRoute.params.subscribe(params => {
       let id = params['id'];
       if(id){
@@ -34,8 +32,23 @@ export class FormComponent implements OnInit {
           this.cliente = cliente
         })
       }
-    })
+    });
+    /* REGIONES[5]  --->form.component.html*/
+    this.clienteService.getRegiones().subscribe(regiones =>this.regiones = regiones); ;/*el observable asigna las regiones del apirest y se lo asiga al atributo this.regiones*/
   }
+
+  /*cargar cliente en el form[3]*/
+  // cargarCliente(): void {
+  //   this.acticatedRoute.params.subscribe(params => {
+  //     let id = params['id'];
+  //     if(id){
+  //       this.clienteService.obtenerClientePorId(id)
+  //       .subscribe((cliente) => {
+  //         this.cliente = cliente
+  //       })
+  //     }
+  //   })
+  // }
 
   crearCliente(): void {
     this.clienteService.crearCliente(this.cliente)
@@ -61,4 +74,12 @@ export class FormComponent implements OnInit {
     )
   }
 
+  /*REGIONES[5] solopara editar */
+  compararRegion(o1:Region, o2:Region):boolean{
+    /* si el combobox es undefined(vaciao) mostrara el texto --selecione una region-- */
+    if(o1 === undefined && o2 === undefined){
+      return true;
+    }
+    return o1 ==null || o2==null || o1 ===undefined || o2===undefined? false: o1.id===o2.id;
+  }
 }

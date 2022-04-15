@@ -6,6 +6,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 
 import { Cliente } from './cliente';
 import swal from 'sweetalert2';
+import { Region } from './region';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,11 @@ subirFoto(archivo: File, id): Observable<Cliente>{
       return throwError(e);
     })
   );
+}
+
+/* REGINES[4]---> form.component-ts*/
+getRegiones(): Observable<Region[]> {
+  return this.http.get<Region[]>(this.urlEndPoind + '/regiones')
 }
 
 }

@@ -1,3 +1,5 @@
+import { Region } from "./region"
+
 export class Cliente {
   id: number
   nombre: string
@@ -6,4 +8,6 @@ export class Cliente {
   createAt: string
   /* subirfoto[1]   -->cliente.service.ts*/
   foto:string
+  /* region[2]---> detalle.component.html*/
+  region:Region;
 }
